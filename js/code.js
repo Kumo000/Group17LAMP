@@ -15,6 +15,13 @@ function doRegister()
 
 	document.getElementById("registerResult").innerHTML = "";
 
+	// Check for empty fields
+	// We can add more checks here as needed
+	if(firstName === "" || lastName === "" || login === "" || password === ""){
+		document.getElementById("registerResult").innerHTML = "Please fill in all fields.";
+		return;
+	}
+
 	let tmp = {
 		firstname: firstName,
 		lastname: lastName,
