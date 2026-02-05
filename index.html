@@ -1,22 +1,69 @@
+<!DOCTYPE html> <!-- add meta tag -->
 <html>
-<head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
+<head>	
+		<meta charset="UTF-8"> <!--add utf 8 declaration -->
+	
+        <title>COP4331 Contact Manager</title>
+        <script type="text/javascript" src="js/md5.js"></script>
+        <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
+<h1 id="title">Contact Manager</h1>
 
+<!--Login-->
 <div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
-	<span id="loginResult"></span>
+        <span id="inner-title">Please log in</span>
+
+        <form id="loginForm" onsubmit="event.preventDefault();doLogin();">
+        <input type="text" id="loginName" placeholder="Username" required/><br />
+        <input type="password" id="loginPassword" placeholder="Password" required/><br />
+
+        <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
+        <span id="loginResult"></span>
+        </form>
+
+        <!--Register option-->
+        <span id="inner-text">Don't have an account yet?</span>
+        <button type="button" class="buttons" onclick="openRegister();">Register </button>
 </div>
+
+<!--Register modal-->
+<div id="registerModal" class="modal">
+        <div class="modal-content">
+
+		<!--Close -->
+                <span class="close" onclick="closeRegister();">&times;</span>
+
+                <h2 class="centerAlign">Register</h2>
+                
+                <form id="registerForm" onsubmit="event.preventDefault();doRegister();">
+                <input type="text" id="registerFirstName" placeholder="First Name" required/><br />
+                <input type="text" id="registerLastName" placeholder="Last Name" required/><br />
+                <input type="text" id="registerLogin" placeholder="Username" required/><br />
+                <input type="password" id="registerPassword" placeholder="Password" required/><br />
+
+                <button type="submit" class="buttons" id="registerAccountButton" onclick="doRegister();">Create Account</button>
+
+                <br />
+                <span id="registerResult"></span>
+                </form>
+        </div>
+</div>
+
+<script>
+        function openRegister()
+        {
+                document.getElementById("registerModal").style.display = "block";
+        }
+
+        function closeRegister()
+        {
+                document.getElementById("registerModal").style.display = "none";
+        }
+</script>
 
 </body>
 </html>

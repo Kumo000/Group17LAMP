@@ -1,40 +1,83 @@
+<!DOCTYPE html> <!-- add meta tag -->
 <html>
-<head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
+<head>	
+		<meta charset="UTF-8"> <!--add utf 8 declaration -->
+        <title>Homepage</title>
+        <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	
-	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
-	{
-		readCookie();
-	}, false);
-	</script>
-	
+
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function()
+        {
+                readCookie();
+        }, false);
+        </script>
+
 </head>
 <body>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
-
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+<!--Top Bar Navigation -->
+<div class="topnav">
+        <h1 id="title">Welcome <span id="userName"></span></h1> <!--Retrieve username-->
+        <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+		
 </div>
+
 
 <div id="accessUIDiv">
-	<br />
+        <br />
+		<!--Search Contacts-->
+        <input type="text" id="searchText" placeholder="Search Contacts"/>
+        <button type="button" id="searchContactButton" class="buttons" onclick="searchColor();"> Search </button><br />
+        
+		<span id="colorSearchResult"></span>
+		<div id="contactsList"></div> <!--or use p --> <!-- results displayed here, use js--> 
+        <br /><br />
 
-	<input type="text" id="searchText" placeholder="Color To Search For"/>
-	<button type="button" id="searchColorButton" class="buttons" onclick="searchColor();"> Search Color </button><br />
-	<span id="colorSearchResult"></span>
-	<p id="colorList">
-	</p><br /><br />
-
-	<input type="text" id="colorText" placeholder="Color To Add">
-	<button type="button" id="addColorButton" class="buttons" onclick="addColor();"> Add Color </button><br />
-	<span id="colorAddResult"></span>
+		
+		<!--Add Contacts--> 
+		<button type="button" class="buttons" onclick="openAddContact();">Add New Contact</button>
+        
+        
 </div>
+
+<!--Add contact modal-->
+<div id="addContactModal" class="modal">
+	<div class="modal-content">
+
+				<!--Close -->
+                <span class="close" onclick="closeAddContact();">&times;</span>
+				
+
+                <h2>Add New Contact</h2>
+
+                <form id="registerForm" onsubmit="event.preventDefault();addColor();"></form>
+                <input type="text" id="nameText" placeholder="Name" required/><br /> <!--consider name change? (id)-->
+                <!-- Not Including for now
+                <input type="text" id="lastText" placeholder="Lastname" required/><br />
+                <input type="text" id="emailText" placeholder="Email" required/><br />
+                -->
+
+                <button type="submit" id="addContactButton" class="buttons" onclick="addColor();"> Add </button><br /> <!--consider function (addName not color)-->
+          
+                <br />
+                <span id="colorAddResult"></span> <!-- n (js)-->
+                </form>
+        </div>
+
+</div>
+
+<script>
+	function openAddContact(){
+		document.getElementById("addContactModal").style.display = "block";
+	}
+
+	function closeAddContact(){
+		document.getElementById("addContactModal").style.display = "none";
+		
+	}
+</script>
 
 </body>
 </html>
