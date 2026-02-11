@@ -11,7 +11,8 @@ function doRegister()
 	let lastName = document.getElementById("registerLastName").value;
 	let login = document.getElementById("registerLogin").value;
 	let password = document.getElementById("registerPassword").value;
-// var hash = md5(password);
+
+        // var hash  md5(password);
 
 	document.getElementById("registerResult").innerHTML = "";
 
@@ -21,6 +22,10 @@ function doRegister()
 		document.getElementById("registerResult").innerHTML = "Please fill in all fields.";
 		return;
 	}
+
+	// var hash = md5(password);
+
+	document.getElementById("registerResult").innerHTML = "";
 
 	let tmp = {
 		firstname: firstName,

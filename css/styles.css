@@ -1,8 +1,18 @@
+
+/*BODY */
 body 
 {
-    background-color: #707070;
+    background:  #235164 url('../images/blue.jpg'); /*instead of using backgroud-color/img*/ 
+     /*537da5 , 235164*/
+    /*backgroun-image: testing, change later*/
+    animation:fadeInPage 0.8s ease-in; /*fadein effect so color->img isn't too noticeable*/
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
+/*TITLES, TEXT*/
 #title 
 {
     font-size: 40px;
@@ -10,49 +20,13 @@ body
     margin: 2% 5%;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
-}
-
-#loginDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
-}
-
-#loggedInDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
-}
-
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
-}
-
-.buttons
-{
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-.buttons:hover{
-    background-color: #00d5124f;
-    color: #FFFFFF;
-    opacity: 50%;
+    color: #fffbfb;
+    /*  text-shadow: 
+        -1px -1px 0 black, 
+        1px -1px 0 black, 
+        -1px  1px 0 black, 
+        1px  1px 0 black;  */
+  
 }
 
 #loginName
@@ -89,18 +63,24 @@ input[type="text"],input[type="password"]{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #000000;
 }
 
-#loginResult{
+#inner-text{
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 0.5em;
     width: 90%;
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #0c0e17;
+}
+
+.centerAlign{ /*using for register text title*/
+    text-align: center;
+    text-indent: 60px;
+  
 }
 
 #userName{
@@ -110,10 +90,64 @@ input[type="text"],input[type="password"]{
     text-align: center;
 }
 
-#logoutButton{
-    width: 20%;
-    margin-left: 40%;
+/*DIVs*/
+
+/*DIV index.html*/
+#loginDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #506db7d2; /*5c81a1d2, 5462b7da*/
 }
+
+#loggedInDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
+#accessUIDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #506db7f1;
+}
+
+/* BUTTONS */
+.buttons
+{
+    font-size: 30px;
+    border-radius: 25px;
+    width: 50%;
+    margin-left: 25%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.buttons:hover{
+    background-color: #1697a582; /*00d5124f*/
+    color: #FFFFFF;
+    opacity: 50%;
+}
+
+#logoutButton{
+    width: auto; /*20*/
+    margin-left: 70%;
+}
+
+#registerAccountButton{
+    width: 70%; /*20*/
+    padding: 4%;
+    margin-left: 10%;
+}
+
+
 
 select{
     width: 30%;
@@ -122,6 +156,69 @@ select{
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
 }
+
+
+/*MODALS*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/blue.jpg); /*rgba(0,0,0,5)*/
+}
+
+.modal-content {
+    background-color: #506db7da; /*#b2b2b2, #274876*/
+    margin: 10% auto;
+    padding: 25px;
+    width: 70%;
+    max-width: 400px;
+    border-radius: 25px;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+}
+
+.modal-content input {
+    height: 35px;
+    font-size: 18px;
+}
+
+.modal-content .buttons {
+    margin-top: 10px;
+}
+
+.close { /*close X button*/
+    float: right;
+    font-size: 45px; 
+    cursor: pointer;
+    transition:all 0.3s ease;
+}
+.close:hover{
+    color:#ffffff; /*FFFFFF*/
+    transform:scale(1.1);
+}
+#addContactModal{
+    background-color: #0c0e17;
+}
+
+/*SEARCH*/
+
+/*STATUS MESSAGES*/
+#registerResult {
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-top: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
+
 
 #colorSearchResult{
     display: none;
@@ -137,4 +234,22 @@ select{
     margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
+}
+
+#loginResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
+/*For mobile devices*/
+@media only screen and (max-width: 767px) {
+  
+        /*change background img if applicable (body{})*/ 
+    
 }
