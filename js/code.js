@@ -283,17 +283,23 @@ function addContact()
 	
 }
 
-function searchColor()
+function searchContacts()
 {
 	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	let colorList = "";
+	// Check for empty search field
+	if (srch === "") {
+		document.getElementById("contactSearchResult").innerHTML = "Search field cannot be empty";
+		document.getElementById("contactList").innerHTML = "";
+		return;
+	}
 
+	document.getElementById("contactSearchResult").innerHTML = "";
+	
+	let contactList = "";
 	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/SearchColors.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -304,26 +310,44 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
+
+				// Check for error in response
+				if(jsonObject.error){
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+					document.getElementById("contactList").innerHTML = "";
+					return;
+				}
+				// Check if any contacts were found
+				if(jsonObject.results.length === 0){
+					document.getElementById("contactSearchResult").innerHTML = "No contacts found";
+					document.getElementById("contactList").innerHTML = "";
+					return;
+				}
+
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
+					let contact = jsonObject.results[i];
+					// Build the contact list as an HTML table
+					contactList += "<tr>";
+					contactList += "<td>" + contact.firstName + "</td>";
+					contactList += "<td>" + contact.lastName + "</td>";
+					contactList += "<td>" + contact.email + "</td>";
+					contactList += "<td>" + contact.phone + "</td>";
+					contactList += "</tr>";
+
 				}
 				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				document.getElementById("contactList").innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 	
 }
