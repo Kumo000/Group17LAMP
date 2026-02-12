@@ -23,6 +23,29 @@ function doRegister()
 		return;
 	}
 
+	// Regex for name, login, and password validation
+	let nameRegex = /^[a-zA-Z'-]+$/; // Must only contain letters, apostrophes, or hyphens
+	let loginRegex = /^[a-zA-Z0-9_-]{3,}$/; // Must only contain letters, numbers, underscores, hyphens and at least 3 characters
+	let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/; // Password must contain 8 characters, one letter, one number and one special character
+
+	// Validate inputs using regex
+	if(!nameRegex.test(firstName)){
+		document.getElementById("registerResult").innerHTML = "First name can only contain letters.";
+		return;
+	}
+	if(!nameRegex.test(lastName)){
+		document.getElementById("registerResult").innerHTML = "Last name can only contain letters.";
+		return;
+	}
+	if(!loginRegex.test(login)){
+		document.getElementById("registerResult").innerHTML = "Login must be at least 3 characters and can only contain letters, numbers, underscores, or hyphens.";
+		return;
+	}
+	if(!passwordRegex.test(password)){
+		document.getElementById("registerResult").innerHTML = "Password must contain 8 characters, one letter, one number and one special character.";
+		return;
+	}
+
 	// var hash = md5(password);
 
 	document.getElementById("registerResult").innerHTML = "";
@@ -177,15 +200,54 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addContact()
 {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+	let firstName = document.getElementById("firstName").value;
+	let lastName = document.getElementById("lastName").value;
+	let email = document.getElementById("email").value;
+	let phone = document.getElementById("phone").value;
 
-	let tmp = {color:newColor,userId,userId};
+	document.getElementById("contactAddResult").innerHTML = "";
+
+	if(firstName === "" || lastName === "" || email === "" || phone === ""){
+		document.getElementById("contactAddResult").innerHTML = "Please fill in all fields.";
+		return;
+	}
+
+	// Regex for name, email, and phone validation
+	let nameRegex = /^[a-zA-Z'-]+$/; // Must only contain letters, apostrophes, or hyphens
+	let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Basic email format
+	let phoneRegex = /^\d{10}$/; // Must be exactly 10 digits
+
+	// Validate inputs using regex
+	if(!nameRegex.test(firstName)){
+		document.getElementById("contactAddResult").innerHTML = "First name can only contain letters.";
+		return;
+	}
+	if(!nameRegex.test(lastName)){
+		document.getElementById("contactAddResult").innerHTML = "Last name can only contain letters.";
+		return;
+	}
+	if(!emailRegex.test(email)){
+		document.getElementById("contactAddResult").innerHTML = "Please enter a valid email address.";
+		return;
+	}
+	if(!phoneRegex.test(phone)){
+		document.getElementById("contactAddResult").innerHTML = "Phone number must be 10 digits.";
+		return;
+	}
+
+	let tmp = {
+		firstname:firstName,
+		lastname:lastName,
+		email:email,
+		phone:phone,
+		userId:userId
+	};
+
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/AddColor.' + extension;
+	let url = urlBase + '/AddContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -196,14 +258,27 @@ function addColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				let jsonObject = JSON.parse(xhr.responseText);
+				// Check for error in response
+				if(jsonObject.error){
+					document.getElementById("contactAddResult").innerHTML = jsonObject.error;
+					return;
+				}
+				else{
+					document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+					// Clear input fields after successful addition
+					document.getElementById("firstName").value = "";
+					document.getElementById("lastName").value = "";
+					document.getElementById("email").value = "";
+					document.getElementById("phone").value = "";
+				}
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
 	
 }
