@@ -205,6 +205,42 @@ select{
     background-color: #0c0e17;
 }
 
+/*TOP NAV (contacts page)*/
+.topnav{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; /* vrtically center both elements */
+    width:95%;
+    margin: 20px ;
+    
+}
+
+.topnav #title{
+    text-align: left;
+    margin:0;
+    
+
+}
+.topnav #logoutButton{
+    width:auto; /*override*/
+    white-space: nowrap;
+    margin:0;
+    padding: 10px 15px;
+    font-size: 20px;
+
+}
+.close { /*close X button*/
+    float: right;
+    font-size: 45px; 
+    cursor: pointer;
+    transition:all 0.3s ease;
+}
+.close:hover{
+    color:#ffffff; /*FFFFFF*/
+    transform:scale(1.1);
+}
+
+
 /*SEARCH*/
 
 /*STATUS MESSAGES*/
@@ -215,7 +251,7 @@ select{
     text-align: center;
     margin-top: 10px;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #cc272d; /*95060a*/
 }
 
 
@@ -233,7 +269,7 @@ select{
     margin-top: 2%;
     margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #cc272d; /*95060a*/
 }
 
 #loginResult{
@@ -244,7 +280,7 @@ select{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #cc272d; /*95060a*/
 }
 
 /*For mobile devices*/
