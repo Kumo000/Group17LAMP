@@ -255,7 +255,6 @@ select{
 }
 
 
-
 #colorSearchResult{
     display: none;
 }
@@ -281,6 +280,40 @@ select{
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
     color: #cc272d; /*95060a*/
+}
+
+/*CONTACT TABLE*/
+.contact-table{
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.95); /*try diff*/
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 20px;
+    border-collapse: collapse;
+    /*display: none; /*not shown unless searching , might edit*/
+}
+
+.contact-table thead {
+    background-color: #708acb; /*change later*/
+    color: white; /*change later*/
+}
+
+.contact-table th {
+    padding: 15px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.contact-table tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /*check*/
+    transition: background-color 0.3s ease;
+}
+
+.contact-table td {
+    padding: 15px;
+    font-size: 16px;
+    color: #0c0e17;
 }
 
 /*For mobile devices*/
