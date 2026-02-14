@@ -10,7 +10,7 @@ body
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    min-height: 100vh; /**/
+    /* min-height: 100vh;  */
     margin:0; /**/
     padding: 0;  /**/
 }
@@ -226,6 +226,7 @@ select{
     width: 100%;
     height: 100%;
     background-image: url(../images/blue.jpg); /*rgba(0,0,0,5)*/
+    overflow-y: auto; /* curr fix , scroll if modal is tall */
 }
 
 .modal-content {
