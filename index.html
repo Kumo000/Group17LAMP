@@ -9,7 +9,8 @@
     <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
-<body>
+
+<body class="index-page">
 
 <h1 id="title">Contact Manager</h1>
 
@@ -18,8 +19,8 @@
         <span id="inner-title">Please log in</span>
 
         <form id="loginForm" onsubmit="event.preventDefault();doLogin();">
-        <input type="text" id="loginName" placeholder="Username" required/><br />
-        <input type="password" id="loginPassword" placeholder="Password" required/><br />
+        <input type="text" class="inputField" id="loginName" placeholder="Username" required/><br />
+        <input type="password" class="inputField" id="loginPassword" placeholder="Password" required/><br />
 
         <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
         <span id="loginResult"></span>
@@ -40,12 +41,15 @@
                 <h2 class="centerAlign">Register</h2>
                 
                 <form id="registerForm" onsubmit="event.preventDefault();doRegister();">
-                <input type="text" id="registerFirstName" placeholder="First Name" required/><br />
-                <input type="text" id="registerLastName" placeholder="Last Name" required/><br />
-                <input type="text" id="registerLogin" placeholder="Username" required/><br />
-                <input type="password" id="registerPassword" placeholder="Password" required/><br />
-
+                <input type="text" class="inputField" id="registerFirstName" placeholder="First Name" required/><br />
+                <input type="text" class="inputField" id="registerLastName" placeholder="Last Name" required/><br />
+                <input type="text" class="inputField" id="registerLogin" placeholder="Username" required/><br />
+                <input type="password" class="inputField" id="registerPassword" placeholder="Password" required/><br />
+                
+                <div class="button-group">
                 <button type="submit" class="buttons" id="registerAccountButton" onclick="doRegister();">Create Account</button>
+                <button class="buttons" id="registerCancelButton" onclick="closeRegister();clearRegister();">Cancel</button>
+                </div>
 
                 <br />
                 <span id="registerResult"></span>
@@ -62,6 +66,14 @@
         function closeRegister()
         {
                 document.getElementById("registerModal").style.display = "none";
+        }
+        function clearRegister()
+        {
+                // Clear form fields
+                document.getElementById("registerFirstName").value = "";
+                document.getElementById("registerLastName").value = "";
+                document.getElementById("registerLogin").value = "";
+                document.getElementById("registerPassword").value = "";
         }
 </script>
 
