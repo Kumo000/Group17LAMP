@@ -25,7 +25,8 @@
                 {
                       $stmt->close();
                       $conn->close();
-                      returnWithError("");
+					  $retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '","email":"' . $email . '","phone":"' . $phone . '","contactId":' . $contactId . ',"userId":' . $userId . ',"error":""}';
+                      sendResultInfoAsJson($retValue);
                 }
                 else
                 {
@@ -50,3 +51,4 @@
                 sendResultInfoAsJson( $retValue );
         }
 ?>
+

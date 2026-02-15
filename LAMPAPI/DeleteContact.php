@@ -2,7 +2,7 @@
         $inData = getRequestInfo();
 
         $userId = $inData["userId"];
-        $messageId = $inData["messageId"];
+        $contactId = $inData["contactId"];
 
         $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
         if ($conn->connect_error)
@@ -11,9 +11,8 @@
         }
         else
         {
-
-                $stmt1 = $conn->prepare("SELECT ID FROM Contacts WHERE ID=? AND UserID=?");
-		            $stmt1->bind_param("ii", $messageId, $userId);
+                $stmt1 = $conn->prepare("SELECT ID FROM Contacts WHERE ID=? AND UserId=?");
+		            $stmt1->bind_param("ii", $contactId, $userId);
 		            $stmt1->execute();
 		            $result = $stmt1->get_result();
 
@@ -21,8 +20,8 @@
                 if( $row = $result->fetch_assoc()  )
                 {
                       
-                      $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=? AND UserID=?");
-                      $stmt->bind_param("ii", $messageId, $userId);
+                      $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=? AND UserId=?");
+                      $stmt->bind_param("ii", $contactId, $userId);
                       $stmt->execute();
                       $stmt->close();
                       $stmt1->close();

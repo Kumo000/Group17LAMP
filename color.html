@@ -1,40 +1,150 @@
+<!DOCTYPE html> <!-- add meta tag -->
 <html>
-<head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
+<head>	
+		<meta charset="UTF-8"> <!--add utf 8 declaration -->
+        <title>Homepage</title>
+        <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	
-	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() 
-	{
-		readCookie();
-	}, false);
-	</script>
-	
+
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function()
+        {
+                readCookie();
+        }, false);
+        </script>
+
 </head>
-<body>
 
-<h1 id="title">Contacts</h1>
+<body class="contacts-page">
 
-<div id="loggedInDiv">
-	<span id="userName"></span><br />
-	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+<!--Top Bar Navigation -->
+<div class="topnav">
+        <h1 id="title">Welcome <span id="userName"></span></h1> <!--Retrieve username-->
+        <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+		
 </div>
+
 
 <div id="accessUIDiv">
-	<br />
+        <br />
+		<!--Search Contacts-->
+		<div id="searchDiv">
+        <input type="text" id="searchText" placeholder="Search Contacts"/>
+        <button type="button" id="searchContactButton" class="buttons" onclick="searchContacts();"> Search </button><br /> <!--wait for updated js-->
+        </div>
 
-	<input type="text" id="searchText" placeholder="Search Contacts"/>
-	<button type="button" id="searchColorButton" class="buttons" onclick="searchColor();"> Search </button><br />
-	<span id="colorSearchResult"></span>
-	<p id="colorList">
-	</p><br /><br />
+		<span id="contactSearchResult"></span>
+		
+		<!--Table for contacts-->
+		<div class="tableWrap">
+		<table id="contactList" class="contact-table"> <!-- results displayed here, wait for updated js--> 
+			<thead> <!--headers-->
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th></th> 
+					<!-- <th>Edit</th>
+					<th>Delete</th> -->
+				</tr>
+			</thead>
+			
+			<tbody id="tbody">
+				<!--js-->
+			</tbody>
+		</table>
+		</div>
+		  
+        
+		<br /><br />
 
-	<input type="text" id="colorText" placeholder="Add Contact">
-	<button type="button" id="addColorButton" class="buttons" onclick="addColor();"> Add </button><br />
-	<span id="colorAddResult"></span>
+		
+		<!--Add Contacts--> 
+		<button type="button" class="buttons" onclick="openAddContact();">Add New Contact</button>
+        
 </div>
+
+<!--Add contact modal-->
+<div id="addContactModal" class="modal">
+	<div class="modal-content">
+
+				<!--Close -->
+                <span class="close" onclick="closeAddContact();">&times;</span>
+				
+
+                <h2>Add New Contact</h2>
+				<!--Currrently all fields are required-->
+                <form id="registerForm" onsubmit="event.preventDefault();addContact();">
+                <input type="text" id="firstName" placeholder="Name" required/><br /> <!--consider name change? (id)-->
+                <input type="text" id="lastName" placeholder="Last Name" required/><br />
+				<input type="text" id="email" placeholder="Email" required/><br />
+				<input type="text" id="phone" placeholder="Phone Number" required/><br /> 
+
+                
+				<div class="button-group">
+                <button type="submit" id="addContactButton" class="buttons" > Add </button><br /> <!-- wait for updated js-->
+                <button class="buttons" id="addCancelButton" onclick="closeAddContact();clearAddContact();">Cancel</button>
+                </div>
+                
+          
+                <br />
+                <span id="contactAddResult"></span> <!-- n (js)-->
+                </form>
+        </div>
+
+</div>
+
+<!--Edit Contact Modal--> <!--edit again with edit function-->
+<div id="editContactModal" class="modal">
+	<div class="modal-content">
+		<!--Close -->
+        <span class="close" onclick="closeEditContact();">&times;</span>
+		
+		<form id="editContactForm" onsubmit="event.preventDefault(); " ><!-- add edit function name here (js)-->
+			<input type="text" id="editFirstName" placeholder="Name" required/><br />
+            <input type="text" id="editLastName" placeholder="Last Name" required/><br />
+            <input type="text" id="editEmail" placeholder="Email" required/><br />
+            <input type="text" id="editPhone" placeholder="Phone Number" required/><br />
+
+
+			<button type="submit" id="editContactButton" class="buttons"> Save changes </button><br /> <!-- add functionname,wait for updated js-->
+
+			<br />
+            <span id="contactEditResult"></span> <!-- add result name (js) here-->
+		</form>
+
+	</div>
+</div>
+
+<script>
+	function openAddContact(){
+		document.getElementById("addContactModal").style.display = "flex";
+	}
+
+	function closeAddContact(){
+		document.getElementById("addContactModal").style.display = "none";
+		
+	}
+
+	function openEditContact(){
+		document.getElementById("editContactModal").style.display = "flex";
+	}
+
+	function closeEditContact(){
+		document.getElementById("editContactModal").style.display = "none";
+		
+	}
+	function clearAddContact()
+        {
+                // Clear form fields
+                document.getElementById("firstName").value = "";
+                document.getElementById("lastName").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("phone").value = "";
+        }
+</script>
 
 </body>
 </html>

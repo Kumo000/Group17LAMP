@@ -10,14 +10,30 @@ body
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    /* min-height: 100vh;  */
+    margin:0; /**/
+    padding: 0;  /**/
+}
+
+body.index-page /**/
+{
+    display: flex;
+    flex-direction: column;     
+    justify-content: center; 
+    align-items: center;
+}
+
+body.contacts-page /* !! */
+{
+    display:block;
 }
 
 /*TITLES, TEXT*/
 #title 
 {
-    font-size: 40px;
+    font-size: clamp(30px, 5vw, 50px); /*40px*/
     width: 100%;
-    margin: 2% 5%;
+    margin: 20px auto 30px auto; /*2% 5%*/
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
     color: #fffbfb;
@@ -29,7 +45,7 @@ body
   
 }
 
-#loginName
+/* #loginName
 {
 	font-size: 30px;
 }
@@ -44,20 +60,29 @@ body
 #colorText
 {
 	font-size: 30px;
-}
+} */
 
 input[type="text"],input[type="password"]{
     border-radius: 25px;
     text-align: center;
     width: 80%;
+    max-width: 100%; /**/
     margin-left: 10%;
     margin-bottom: 2%;
+    padding:12px;
     font-family: 'Ubuntu', sans-serif;
+}
+
+.inputField:invalid{
+    border: 2px solid blue;
+}
+.inputField:invalid:required {
+    background-image: black;
 }
 
 #inner-title{
     display: inline-block;
-    font-size: 0.8em;
+    font-size: clamp(18px, 5vw, 30px); /*0.8em*/
     width: 90%;
     text-align: center;
     margin-left: 5%;
@@ -68,7 +93,7 @@ input[type="text"],input[type="password"]{
 
 #inner-text{
     display: inline-block;
-    font-size: 0.5em;
+    font-size:clamp(12px, 5vw, 18px); /*0.5em*/
     width: 90%;
     text-align: center;
     margin-left: 5%;
@@ -95,39 +120,50 @@ input[type="text"],input[type="password"]{
 /*DIV index.html*/
 #loginDiv
 {
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
+    font-size: clamp(20px, 4vw, 30px); /*30px*/
+    width: 90%; /*70%*/
+    max-width: 500px; /**/
+    border-radius: 25px;/**/
+    margin: 0 auto; /*margin-left: 15%*/
+    padding: 25px;
+    background-color: #506db7d2;
+
+}
+
+#accessUIDiv
+{   
+
+    font-size: clamp(20px, 4vw, 30px); /*30px*/
+    width: 90%; /*70%*/
+    border-radius: 25px; /**/
+    max-width: 900px; 
+    margin: 20px auto; /*margin-left: 15%*, then 20% auto*/
     padding: 25px;
     background-color: #506db7d2; /*5c81a1d2, 5462b7da*/
 }
 
-#loggedInDiv
+#loggedInDiv /*!!!*/
 {
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
+    font-size: clamp(20px, 4vw, 30px); /*30px*/
+    width: 70%; /*70%*/
+    max-width: 900px;
+    margin: 20px auto; /*margin-left:15%*/
     padding: 25px;
     background-color: #b2b2b2;
-}
-
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #506db7f1;
 }
 
 /* BUTTONS */
 .buttons
 {
-    font-size: 30px;
+    font-size: clamp(20px, 3vw, 30px);/*30px*/
     border-radius: 25px;
     width: 50%;
-    margin-left: 25%;
+    margin-left: 25%; /*margin-left: 25%;*/
     font-family: 'Ubuntu', sans-serif;
+    /**/
+    padding: 12px 20px;
+    cursor: pointer;
+    display:block;
 }
 
 .buttons:hover{
@@ -137,14 +173,35 @@ input[type="text"],input[type="password"]{
 }
 
 #logoutButton{
-    width: auto; /*20*/
-    margin-left: 70%;
+    width: auto; /*old20*/
+    margin-left: 0; /*70% !!*/
+    padding:10px 20px; /* !! */
 }
 
-#registerAccountButton{
-    width: 70%; /*20*/
+#registerCancelButton{ /*#addCancelButton*/
+    width: 70%; /* old 20*/ /*auto consider*/
+    padding: 6%; /*margin-left: 10%*/
+}
+
+#registerAccountButton, #addContactButton{
+    width: 70%; /*20*/ /*auto consider*/
     padding: 4%;
-    margin-left: 10%;
+    margin-left: 10%; /*0?*/
+}
+
+
+.button-group{
+    display: flex;
+    gap: 10px; /* gap between buttons */
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+.button-group .buttons {
+    flex: 1; /* each button same space*/
+    margin: 0; 
+    width: auto; /* override*/
+    max-width: 200px; 
 }
 
 
@@ -161,7 +218,7 @@ select{
 /*MODALS*/
 
 .modal {
-    display: none;
+    display: none; /*hide first*/
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -169,11 +226,15 @@ select{
     width: 100%;
     height: 100%;
     background-image: url(../images/blue.jpg); /*rgba(0,0,0,5)*/
+    
+    overflow-y: auto; /* curr fix , scroll if modal is tall */
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: #506db7da; /*#b2b2b2, #274876*/
-    margin: 10% auto;
+    /* margin: 10% auto;  */
     padding: 25px;
     width: 70%;
     max-width: 400px;
@@ -205,7 +266,75 @@ select{
     background-color: #0c0e17;
 }
 
+/*TOP NAV (contacts page)*/
+.topnav{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; /* vrtically center both elements */
+    width:95%;
+    margin: 20px auto ; /*20px !!*/
+    /* !! */
+    /* flex-wrap:wrap; for small screen  !!*/
+    max-width: 1200px;
+    padding: 15px 20px;
+    gap: 15px; 
+    
+}
+
+.topnav #title{
+    text-align: left;
+    margin:0;
+    /* !! */
+    flex: 1 1 auto;
+    min-width: 200px;
+    
+
+}
+.topnav #logoutButton{
+    width:auto; /*override*/
+    white-space: nowrap;
+    margin:0;
+    padding: 10px 15px;
+    font-size: 20px;
+    flex: 0 0 auto; /* !! */
+
+}
+.close { /*close X button*/
+    float: right;
+    font-size: 45px; 
+    cursor: pointer;
+    transition:all 0.3s ease;
+}
+.close:hover{
+    color:#ffffff; /*FFFFFF*/
+    transform:scale(1.1);
+}
+
+
 /*SEARCH*/
+#searchDiv{
+    display: flex;
+    gap: 10px;
+    align-items: stretch; 
+    margin-bottom: 20px;
+    flex-wrap:wrap;
+}
+
+#searchDiv input {
+    flex: 1; /* input more space*/
+    margin: 0 !important; /* overridee */
+    margin-left: 0 !important;
+    width: auto !important;
+}
+
+#searchDiv button {
+    flex: 0 1 auto; /* button wont grow */
+    width: auto !important; /* override 50% */
+    margin: 0 !important;
+    margin-left: 0 !important;
+    padding: 12px 20px;
+    white-space: nowrap; /*one line */
+}
 
 /*STATUS MESSAGES*/
 #registerResult {
@@ -215,16 +344,14 @@ select{
     text-align: center;
     margin-top: 10px;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #000000; /*95060a*/
 }
 
-
-
-#colorSearchResult{
+#contactSearchResult{
     display: none;
 }
 
-#colorAddResult{
+#contactAddResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
@@ -233,7 +360,7 @@ select{
     margin-top: 2%;
     margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #000000; /*95060a*/
 }
 
 #loginResult{
@@ -244,8 +371,52 @@ select{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #000000; /*95060a*/
 }
+
+/*CONTACT TABLE*/
+.contact-table{
+    width: 90%;
+    background-color: white; /*try diff*/
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 20px;
+    border-collapse: collapse;
+    /*display: none; /*not shown unless searching , might edit*/
+}
+
+.contact-table thead {
+    background-color: #708acb; /*change later*/
+    color: white; /*change later*/
+    font-family: 'Ubuntu', sans-serif;
+
+}
+
+.contact-table th {
+    padding: 15px;
+    text-align: left;
+    font-size: clamp(15px, 2vw, 18px); /*18px*/
+    font-weight: 600;
+}
+.contact-table td {
+    padding: 15px;
+    text-align: left; /* !! */
+    font-size: clamp(14px, 2vw, 16px);; /*16px !!*/
+    color: #0c0e17;
+}
+
+.contact-table tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /*check*/
+    transition: background-color 0.3s ease;
+}
+
+.tableWrap{ /*scrollable for small screens*/ /* !! */
+    width:90%;
+    overflow-x: auto;
+
+}
+
+
 
 /*For mobile devices*/
 @media only screen and (max-width: 767px) {
