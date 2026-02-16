@@ -384,12 +384,13 @@ select{
 
 /*CONTACT TABLE*/
 .contact-table{
-    width: 90%;
+    width: 100%; /*90%*/
     background-color: white; /*try diff*/
     border-radius: 15px;
     overflow: hidden;
     margin-top: 20px;
     border-collapse: collapse;
+    font-family: 'Ubuntu',sans-serif;
     /*display: none; /*not shown unless searching , might edit*/
 }
 
@@ -411,6 +412,7 @@ select{
     text-align: left; /* !! */
     font-size: clamp(14px, 2vw, 16px);; /*16px !!*/
     color: #0c0e17;
+    font-family: 'Ubuntu',sans-serif;
 }
 
 .contact-table tbody tr {
@@ -419,11 +421,26 @@ select{
 }
 
 .tableWrap{ /*scrollable for small screens*/ /* !! */
-    width:90%;
+    width:100%; /*90*/
     overflow-x: auto;
 
 }
+/*TABLE BUTTONS*/
+.editButton, .deleteButton{
+    min-width: 35px;
+    font-size: clamp(14px, 2vw, 16px);/*30px*/
+    border-radius: 8px;
+    width: 50%;
+    margin-left: 25%; /*margin-left: 25%;*/
+    font-family: 'Ubuntu', sans-serif;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.editButton:hover, .deleteButton:hover{
+    background-color: #1697a582; /*00d5124f*/
+    opacity: 50%;
 
+}
 
 
 /*For mobile devices*/
