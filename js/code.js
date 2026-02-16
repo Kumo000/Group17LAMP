@@ -274,6 +274,7 @@ function addContact()
 					document.getElementById("phone").value = "";
 
 					closeAddContact();
+					searchContacts();
 				}
 			}
 		};
