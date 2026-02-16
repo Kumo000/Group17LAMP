@@ -289,12 +289,6 @@ function addContact()
 function searchContacts()
 {
 	let srch = document.getElementById("searchText").value;
-	// Check for empty search field
-	if (srch === "") {
-		document.getElementById("contactSearchResult").innerHTML = "Search field cannot be empty";
-		document.getElementById("tbody").innerHTML = "";
-		return;
-	}
 
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
@@ -382,6 +376,7 @@ function deleteContact(contactId)
 				if(jsonObject.error === ""){
 					// Contact deleted successfully
 					document.getElementById("contactSearchResult").innerHTML = "Contact has been deleted";
+					searchContacts();
 				}else{
 					// Error occurred during deletion
 					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
@@ -435,8 +430,8 @@ function editContact()
 
 	let tmp = {
 		contactId: currentContactId,
-		firstname: firstName,
-		lastname: lastName,
+		firstName: firstName,
+		lastName: lastName,
 		email: email,
 		phone: phone,
 		userId: userId
@@ -459,6 +454,7 @@ function editContact()
 				if(jsonObject.error === ""){
 					// Contact edited successfully
 					closeEditContact();
+					searchContacts();
 				}else{
 					// Error occurred during editing
 					document.getElementById("contactEditResult").innerHTML = jsonObject.error;
