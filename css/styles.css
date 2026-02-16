@@ -430,5 +430,9 @@ select{
 @media only screen and (max-width: 767px) {
   
         /*change background img if applicable (body{})*/ 
+        body {
+            background-image: url('../images/blue-mobile.webp');
+            background-attachment: scroll;
+        }
     
 }
