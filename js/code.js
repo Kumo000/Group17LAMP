@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let currentContactId = -1;
 
 function doRegister()
 {
@@ -271,6 +272,8 @@ function addContact()
 					document.getElementById("lastName").value = "";
 					document.getElementById("email").value = "";
 					document.getElementById("phone").value = "";
+
+					closeAddContact();
 				}
 			}
 		};
@@ -283,17 +286,23 @@ function addContact()
 	
 }
 
-function searchColor()
+function searchContacts()
 {
 	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	let colorList = "";
+	// Check for empty search field
+	if (srch === "") {
+		document.getElementById("contactSearchResult").innerHTML = "Search field cannot be empty";
+		document.getElementById("tbody").innerHTML = "";
+		return;
+	}
 
-	let tmp = {search:srch,userId:userId};
+	document.getElementById("contactSearchResult").innerHTML = "";
+	
+	let contactList = "";
+	let tmp = {firstname:srch, lastname:srch, userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/SearchColors.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -304,26 +313,183 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
+
+				// Check for error in response
+				if(jsonObject.error){
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+					document.getElementById("tbody").innerHTML = "";
+					return;
+				}
+				// Check if any contacts were found
+				if(jsonObject.results.length === 0){
+					document.getElementById("contactSearchResult").innerHTML = "No contacts found";
+					document.getElementById("tbody").innerHTML = "";
+					return;
+				}
+
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
+					let contact = jsonObject.results[i];
+					// Build the contact list as an HTML table
+					contactList += "<tr>";
+					contactList += "<td>" + contact.firstName + "</td>";
+					contactList += "<td>" + contact.lastName + "</td>";
+					contactList += "<td>" + contact.email + "</td>";
+					contactList += "<td>" + contact.phone + "</td>";
+					contactList += "<td><button onclick='fillFields(" + JSON.stringify(contact) + ")'>Edit</button></td>";
+					contactList += "<td><button onclick='deleteContact(" + contact.contactId + ")'>Delete</button></td>";
+					contactList += "</tr>";
+
 				}
 				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				document.getElementById("tbody").innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 	
+}
+
+function deleteContact(contactId)
+{
+	// Confirm deletion
+	if(!confirm("Are you sure you want to delete this contact?")){
+		return;
+	}
+
+	let tmp = {contactId: contactId, userId: userId};
+
+	let jsonPayload = JSON.stringify( tmp );
+	let url = urlBase + '/DeleteContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let jsonObject = JSON.parse(xhr.responseText);
+				// Check for error in response
+				if(jsonObject.error === ""){
+					// Contact deleted successfully
+					document.getElementById("contactSearchResult").innerHTML = "Contact has been deleted";
+				}else{
+					// Error occurred during deletion
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+					return;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}	
+}
+
+function editContact()
+{
+	let firstName = document.getElementById("editFirstName").value;
+	let lastName = document.getElementById("editLastName").value;
+	let email = document.getElementById("editEmail").value;
+	let phone = document.getElementById("editPhone").value;
+
+	// Check for empty fields
+	if(firstName === "" || lastName === "" || email === "" || phone === ""){
+		document.getElementById("contactEditResult").innerHTML = "Please fill in all fields.";
+		return;
+	}
+
+	// Regex for name, email, and phone validation
+	let nameRegex = /^[a-zA-Z'-]+$/; // Must only contain letters, apostrophes, or hyphens
+	let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Basic email format
+	let phoneRegex = /^\d{10}$/; // Must be exactly 10 digits
+
+	// Validate inputs using regex
+	if(!nameRegex.test(firstName)){
+		document.getElementById("contactEditResult").innerHTML = "First name can only contain letters.";
+		return;
+	}
+	if(!nameRegex.test(lastName)){
+		document.getElementById("contactEditResult").innerHTML = "Last name can only contain letters.";
+		return;
+	}
+	if(!emailRegex.test(email)){
+		document.getElementById("contactEditResult").innerHTML = "Please enter a valid email address.";
+		return;
+	}
+	if(!phoneRegex.test(phone)){
+		document.getElementById("contactEditResult").innerHTML = "Phone number must be 10 digits.";
+		return;
+	}
+
+	let tmp = {
+		contactId: currentContactId,
+		firstname: firstName,
+		lastname: lastName,
+		email: email,
+		phone: phone,
+		userId: userId
+	};
+
+	let jsonPayload = JSON.stringify( tmp );
+	let url = urlBase + '/EditContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try
+	{
+		xhr.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let jsonObject = JSON.parse(xhr.responseText);
+				// Check for error in response
+				if(jsonObject.error === ""){
+					// Contact edited successfully
+					closeEditContact();
+				}else{
+					// Error occurred during editing
+					document.getElementById("contactEditResult").innerHTML = jsonObject.error;
+					return;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactEditResult").innerHTML = err.message;
+	}
+}
+
+function fillFields(contact)
+{
+	// Current contact ID for editing
+	currentContactId = contact.contactId;
+	// Fill the edit form fields with the contact's current information
+	document.getElementById("editFirstName").value = contact.firstName;
+	document.getElementById("editLastName").value = contact.lastName;
+	document.getElementById("editEmail").value = contact.email;
+	document.getElementById("editPhone").value = contact.phone;
+
+	// Open the edit contact form
+	openEditContact();
+
+	// Call editContact() when the form is submitted
+	document.getElementById("editContactForm").onsubmit = function(event){
+		event.preventDefault();
+		editContact();
+	};
 }
