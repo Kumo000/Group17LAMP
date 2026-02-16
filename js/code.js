@@ -339,8 +339,8 @@ function searchContacts()
 					contactList += "<td>" + contact.lastName + "</td>";
 					contactList += "<td>" + contact.email + "</td>";
 					contactList += "<td>" + contact.phone + "</td>";
-					contactList += "<td><button onclick='fillFields(" + JSON.stringify(contact) + ")'>Edit</button></td>";
-					contactList += "<td><button onclick='deleteContact(" + contact.contactId + ")'>Delete</button></td>";
+					contactList += "<td><button class='editButton' onclick='fillFields(" + JSON.stringify(contact) + ")'><i class='fa-solid fa-pen-to-square'></i> </button></td>";
+					contactList += "<td><button class='deleteButton' onclick='deleteContact(" + contact.contactId + ")'> <i class='fa-solid fa-trash'></i> </button></td>";
 					contactList += "</tr>";
 
 				}
