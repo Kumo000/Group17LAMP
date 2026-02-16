@@ -110,17 +110,21 @@
 		<!--Close -->
         <span class="close" onclick="closeEditContact();">&times;</span>
 		
-		<form id="editContactForm" onsubmit="event.preventDefault(); " ><!-- add edit function name here (js)-->
+		<h2>Editing Contact</h2>
+		<form id="editContactForm" onsubmit="event.preventDefault(); editContact()" ><!-- added function name  (js)-->
 			<input type="text" id="editFirstName" placeholder="Name" required/><br />
             <input type="text" id="editLastName" placeholder="Last Name" required/><br />
             <input type="text" id="editEmail" placeholder="Email" required/><br />
             <input type="text" id="editPhone" placeholder="Phone Number" required/><br />
 
-
-			<button type="submit" id="editContactButton" class="buttons"> Save changes </button><br /> <!-- add functionname,wait for updated js-->
+			<div class="button-group">
+                <button type="submit" id="editContactButton" class="buttons"> 
+					<i class="fa-solid fa-floppy-disk"></i> Save changes </button><br />
+                <button class="buttons" id="editCancelButton" onclick="closeAddContact();clearAddContact();">Cancel</button>
+            </div>
 
 			<br />
-            <span id="contactEditResult"></span> <!-- add result name (js) here-->
+            <span id="contactEditResult"></span> <!-- added result name-->
 		</form>
 
 	</div>
