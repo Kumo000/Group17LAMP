@@ -112,7 +112,9 @@
         <span class="close" onclick="closeEditContact();">&times;</span>
 		
 		<h2>Editing Contact</h2>
-		<form id="editContactForm" onsubmit="event.preventDefault(); editContact()" ><!-- added function name  (js)-->
+		<form id="editContactForm"> 
+			<!--onsubmit="event.preventDefault(); editContact()" -->
+			<!-- added function name  (js)-->
 			<input type="text" id="editFirstName" placeholder="Name" required/><br />
             <input type="text" id="editLastName" placeholder="Last Name" required/><br />
             <input type="text" id="editEmail" placeholder="Email" required/><br />
