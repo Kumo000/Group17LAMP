@@ -3,6 +3,40 @@
 <head>	
 	<meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--add utf 8 declaration -->
+
+        <!-- simple CSS  -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #001C42;
+            min-height: 100vh;
+            font-family: 'Ubuntu', Arial, sans-serif;
+        }
+        body.index-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #title {
+            font-size: clamp(30px, 5vw, 50px);
+            width: 100%;
+            margin: 20px auto 30px;
+            text-align: center;
+            color: #fffbfb;
+        }
+        #loginDiv {
+            font-size: clamp(20px, 4vw, 30px);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 25px;
+            margin: 0 auto;
+            padding: 25px;
+            background-color: #506db7d2;
+        }
+        main { width: 100%; display: contents; }
+    </style>
+
 	<link rel="preconnect" href="https://fonts.googleapis.com"> <!--preconnect to fonts-->
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <!-- <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> -->
@@ -19,7 +53,7 @@
 
 <body class="index-page">
 
-<h1 id="title">Contact Manager</h1>
+<h1 id="title" role="banner">Contact Manager</h1>
 
 <main> 
         <!-- for accesibility-->
