@@ -51,7 +51,8 @@
 					<th>Last Name</th>
 					<th>Email</th>
 					<th>Phone</th>
-					<th>Edit / Delete </th> 
+					<th>Edit / Delete </th>
+					<th></th> 
 					<!-- <th>Edit</th>
 					<th>Delete</th> -->
 				</tr>
@@ -83,7 +84,7 @@
 
                 <h2>Add New Contact</h2>
 				<!--Currrently all fields are required-->
-                <form id="registerForm" onsubmit="event.preventDefault();addContact();">
+                <form id="addContactForm" onsubmit="event.preventDefault();addContact();">
                 <input type="text" id="firstName" placeholder="Name" required/><br /> <!--consider name change? (id)-->
                 <input type="text" id="lastName" placeholder="Last Name" required/><br />
 				<input type="text" id="email" placeholder="Email" required/><br />
@@ -104,7 +105,7 @@
 
 </div>
 
-<!--Edit Contact Modal--> <!--edit again with edit function-->
+<!--Edit Contact Modal--> 
 <div id="editContactModal" class="modal">
 	<div class="modal-content">
 		<!--Close -->
