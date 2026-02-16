@@ -2,7 +2,7 @@
 /*BODY */
 body 
 {
-    background:  #235164 url('../images/blue.jpg'); /*instead of using backgroud-color/img*/ 
+    background:  #235164 url('../images/blue.webp'); /*instead of using backgroud-color/img*/ 
      /*537da5 , 235164*/
     /*backgroun-image: testing, change later*/
     animation:fadeInPage 0.8s ease-in; /*fadein effect so color->img isn't too noticeable*/
