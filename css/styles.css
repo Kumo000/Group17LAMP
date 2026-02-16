@@ -433,6 +433,8 @@ select{
         body {
             background-image: url('../images/blue-mobile.webp');
             background-attachment: scroll;
+            background-position: center top;
+
         }
     
 }
