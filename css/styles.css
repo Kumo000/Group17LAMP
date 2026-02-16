@@ -28,6 +28,11 @@ body.contacts-page /* !! */
     display:block;
 }
 
+main { /* !! prevent modal shrinking in index*/
+    width: 100%;
+    display: contents; /*  main is invisible to flexbox */
+}
+
 /*TITLES, TEXT*/
 #title 
 {
