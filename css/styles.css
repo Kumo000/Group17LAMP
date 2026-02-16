@@ -209,7 +209,10 @@ input[type="text"],input[type="password"]{
     max-width: 200px; 
 }
 
-
+/*ICONS*/
+.buttons i {
+    margin-right: 5px; /* maring btw icon and text*/
+}
 
 select{
     width: 30%;
