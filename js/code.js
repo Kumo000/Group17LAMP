@@ -294,7 +294,7 @@ function searchContacts()
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
 	let contactList = "";
-	let tmp = {firstname:srch, lastname:srch, userId:userId};
+	let tmp = {query:srch, userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContacts.' + extension;
