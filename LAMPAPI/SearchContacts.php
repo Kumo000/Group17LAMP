@@ -12,13 +12,12 @@
         }
         else
         {
-                $stmt = $conn->prepare("SELECT * FROM Contacts WHERE FirstName LIKE ? AND LastName LIKE ? AND UserID=?");
+                $stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Email LIKE ? OR Phone LIKE ?) AND UserID = ?");
 
-                $firstName = "%" . $inData["firstname"] . "%";
-                $lastName = "%" . $inData["lastname"] . "%";
+                $query = "%" . $inData["query"] . "%";
                 $userId = $inData["userId"];
 
-                $stmt->bind_param("sss", $firstName, $lastName, $userId);
+                $stmt->bind_param("ssssi", $query, $query, $query, $query, $userId);
                 $stmt->execute();
 
                 $result = $stmt->get_result();
@@ -28,9 +27,6 @@
 
                 while($row = $result->fetch_assoc())
                 {
-                        // $arr_val_i = '{"contactId":' . $row["ID"] . ',"firstName":"' . $row["FirstName"] . '","lastName":"' . $row["LastName"] . '","email":"' . $row["Email"] . '","phone":"' . $row["Phone"] . '"}';
-                        // $results[] = $arr_val_i;
-
                         $results[] = [
                                 "contactId" => $row["ID"],
                                 "firstName" => $row["FirstName"],
